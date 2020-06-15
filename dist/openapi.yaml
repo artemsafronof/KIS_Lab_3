@@ -1,0 +1,413 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: TELEGRAM API
+  contact:
+    name: Максим Заболотный
+    email: maxim.bely@gmail.com
+servers:
+  - url: 'https://example.com/v1.0'
+    description: Live Server
+tags:
+  - name: Пользователь
+    description: |
+      Раздел пользователя
+  - name: Беседа
+    description: |
+      Раздел беседы
+  - name: Сообщение
+    description: |
+      Раздел сообщений
+security:
+  - SecretApiKey: []
+  - JWT: []
+paths:
+  /users:
+    get:
+      tags:
+        - Пользователь
+      summary: Получить информацию о пользователях
+      operationId: GetUsers
+      description: |
+        Получить информацию о пользователях
+      responses:
+        '200':
+          description: Информация о пользователях была успешно получена
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '401':
+          description: Отказано в доступе
+    post:
+      tags:
+        - Пользователь
+      summary: Добавить нового пользователя
+      operationId: PostUser
+      description: |
+        Добавить нового пользователя
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Пользователь был успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Отказано в доступе
+        '422':
+          description: Неверные данные
+  '/user/{id}':
+    get:
+      tags:
+        - Пользователь
+      summary: Получить пользователя по ID
+      operationId: GetUser
+      description: |
+        Получить информацию о пользователе по ID
+      responses:
+        '200':
+          description: Информация о пользователе успешно получена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+    patch:
+      tags:
+        - Пользователь
+      summary: Изменить пользователя по ID
+      operationId: PatchUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Пользователь был изменен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+        '409':
+          description: Пользователь существует и не может быть обновлен
+        '422':
+          description: Неверные данные
+    delete:
+      tags:
+        - Пользователь
+      summary: Удалить пользователя по ID
+      operationId: DeleteUser
+      description: |
+        Удалить пользователя по ID
+      responses:
+        '204':
+          description: Пользователь был удален
+        '401':
+          description: Отказано в доступе
+        '402':
+          description: Не можеть быть удален
+        '404':
+          description: Не найдено
+  '/user-message/{userId}':
+    get:
+      tags:
+        - Сообщение
+      summary: Получить все сообщения пользователя по его ID
+      operationId: GetMessagesById
+      description: |
+        Получить все сообщения пользователя по его ID
+      responses:
+        '200':
+          description: Информация о сообщениях пользователя успешно получена
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Messages'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+  /message:
+    post:
+      tags:
+        - Сообщение
+      summary: Добавить новое сообщение
+      operationId: PostMessage
+      description: |
+        Добавить новое сообщение
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Messages'
+      responses:
+        '200':
+          description: Сообщение было успешно добавлено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Messages'
+        '401':
+          description: Отказано в доступе
+        '422':
+          description: Неверные данные
+  '/message/{id}':
+    get:
+      tags:
+        - Сообщение
+      summary: Получить Сообщение по ID
+      operationId: GetMessage
+      description: |
+        Получить информацию о Сообщении по ID
+      responses:
+        '200':
+          description: Информация о Сообщении успешно получено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Messages'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+    patch:
+      tags:
+        - Сообщение
+      summary: Изменить Сообщение по ID
+      operationId: PatchMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Messages'
+      responses:
+        '201':
+          description: Сообщение было изменено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Messages'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+        '409':
+          description: Сообщение существует и не может быть обновлен
+        '422':
+          description: Неверные данные
+    delete:
+      tags:
+        - Сообщение
+      summary: Удалить Сообщение по ID
+      operationId: DeleteMessage
+      description: |
+        Удалить Сообщение по ID
+      responses:
+        '204':
+          description: Сообщение было удалено
+        '401':
+          description: Отказано в доступе
+        '402':
+          description: Не можеть быть удален
+        '404':
+          description: Не найдено
+  /conversation:
+    post:
+      tags:
+        - Беседа
+      summary: Добавить новую беседу
+      operationId: PostConversation
+      description: |
+        Добавить новую беседу
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Conversation'
+      responses:
+        '200':
+          description: Беседа была успешно добавлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '401':
+          description: Отказано в доступе
+        '422':
+          description: Неверные данные
+  '/user-conversations/{userId}':
+    get:
+      tags:
+        - Беседа
+      summary: Получить все беседы пользователя по его ID
+      operationId: GetConversationsById
+      description: |
+        Получить все беседы пользователя по его ID
+      responses:
+        '200':
+          description: Информация о беседах пользователя успешно получена
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Conversation'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+  '/conversation/{id}':
+    get:
+      tags:
+        - Беседа
+      summary: Получить беседу по ID
+      operationId: GetConversation
+      description: |
+        Получить информацию о беседе по ID
+      responses:
+        '200':
+          description: Информация о беседе успешно получено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+    patch:
+      tags:
+        - Беседа
+      summary: Изменить беседу по ID
+      operationId: PatchConversation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Conversation'
+      responses:
+        '201':
+          description: Беседа была изменена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '401':
+          description: Отказано в доступе
+        '404':
+          description: Не найдено
+        '409':
+          description: Беседа существует и не может быть обновлена
+        '422':
+          description: Неверные данные
+    delete:
+      tags:
+        - Беседа
+      summary: Удалить беседу по ID
+      operationId: DeleteConversation
+      description: |
+        Удалить беседу по ID
+      responses:
+        '204':
+          description: Беседа была удалена
+        '401':
+          description: Отказано в доступе
+        '402':
+          description: Не можеть быть удален
+        '404':
+          description: Не найдено
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - name
+        - password
+      properties:
+        id:
+          description: User identifier
+          readOnly: true
+          type: integer
+        name:
+          description: Username
+          type: string
+          maxLength: 255
+          example: Maxim Bely
+        password:
+          description: The token's password
+          type: string
+          format: password
+          writeOnly: true
+        phone:
+          description: The phone value
+          type: string
+          example: 123456789
+    Conversation:
+      type: object
+      required:
+        - title
+      properties:
+        id:
+          description: The conversation identifier
+          readOnly: true
+          type: integer
+        participants:
+          description: Coversation participants
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/User'
+        title:
+          description: Conversation's title
+          type: string
+        description:
+          description: Conversation's description
+          type: string
+        status:
+          description: Transaction status
+          type: string
+          readOnly: true
+    Messages:
+      type: object
+      required:
+        - sender
+        - conversation
+      properties:
+        id:
+          description: The message identifier
+          readOnly: true
+          type: integer
+        sender:
+          description: User ID
+          allOf:
+            - $ref: '#/components/schemas/User'
+        conversation:
+          description: Conversation ID
+          allOf:
+            - $ref: '#/components/schemas/Conversation'
+        text:
+          description: Message text
+          type: string
+          example: 'Hello, how are you?'
+        status:
+          description: Transaction status
+          type: string
+          readOnly: true

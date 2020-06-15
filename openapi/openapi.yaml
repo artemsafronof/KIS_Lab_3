@@ -1,0 +1,40 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: TELEGRAM API
+  contact:
+    name: Максим Заболотный
+    email: maxim.bely@gmail.com
+servers:
+  - url: 'https://example.com/v1.0'
+    description: Live Server
+tags:
+  - name: Пользователь
+    description: |
+      Раздел пользователя
+  - name: Беседа
+    description: |
+      Раздел беседы
+  - name: Сообщение
+    description: |
+      Раздел сообщений
+security:
+  - SecretApiKey: []
+  - JWT: []
+paths:
+  /users:
+    $ref: ./paths/users.yaml
+  /user/{id}:
+    $ref: './paths/user@{id}.yaml'
+  /user-message/{userId}:
+    $ref: './paths/user-messages@{userId}.yaml'
+  /message:
+    $ref: './paths/message.yaml'
+  /message/{id}:
+    $ref: './paths/message@{id}.yaml'
+  /conversation:
+    $ref: './paths/conversation.yaml'
+  /user-conversations/{userId}:
+    $ref: './paths/user-conversations@{userId}.yaml'
+  /conversation/{id}:
+    $ref: './paths/conversation@{id}.yaml'

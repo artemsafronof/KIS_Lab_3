@@ -1,0 +1,24 @@
+type: object
+required:
+  - title
+properties:
+  id:
+    description: The conversation identifier
+    readOnly: true
+    type: integer
+  participants:
+    description: Coversation participants
+    type: array
+    items:
+      allOf:
+        - $ref: ./User.yaml
+  title:
+    description: Conversation's title
+    type: string
+  description:
+    description: Conversation's description
+    type: string
+  status:
+    description: Transaction status
+    type: string
+    readOnly: true

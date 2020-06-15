@@ -1,0 +1,25 @@
+type: object
+required:
+  - sender
+  - conversation
+properties:
+  id:
+    description: The message identifier
+    readOnly: true
+    type: integer
+  sender:
+    description: User ID
+    allOf:
+      - $ref: ./User.yaml
+  conversation:
+    description: Conversation ID
+    allOf:
+      - $ref: ./Conversation.yaml
+  text:
+    description: Message text
+    type: string
+    example: Hello, how are you?
+  status:
+    description: Transaction status
+    type: string
+    readOnly: true

@@ -1,0 +1,23 @@
+post:
+  tags:
+    - Сообщение
+  summary: Добавить новое сообщение
+  operationId: PostMessage
+  description: |
+    Добавить новое сообщение
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Messages.yaml
+  responses:
+    '200':
+      description: Сообщение было успешно добавлено
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Messages.yaml
+    '401':
+      description: Отказано в доступе
+    '422':
+      description: Неверные данные

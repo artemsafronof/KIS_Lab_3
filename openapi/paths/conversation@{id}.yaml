@@ -1,0 +1,59 @@
+get:
+  tags:
+    - Беседа
+  summary: Получить беседу по ID
+  operationId: GetConversation
+  description: |
+    Получить информацию о беседе по ID
+  responses:
+    '200':
+      description: Информация о беседе успешно получено
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Conversation.yaml
+    '401':
+      description: Отказано в доступе
+    '404':
+      description: Не найдено
+patch:
+  tags:
+    - Беседа
+  summary: Изменить беседу по ID
+  operationId: PatchConversation
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Conversation.yaml
+  responses:
+    '201':
+      description: Беседа была изменена
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Conversation.yaml
+    '401':
+      description: Отказано в доступе
+    '404':
+      description: Не найдено
+    '409':
+      description: Беседа существует и не может быть обновлена
+    '422':
+      description: Неверные данные
+delete:
+  tags:
+    - Беседа
+  summary: Удалить беседу по ID
+  operationId: DeleteConversation
+  description: |
+    Удалить беседу по ID
+  responses:
+    '204':
+      description: Беседа была удалена
+    '401':
+      description: Отказано в доступе
+    '402':
+      description: Не можеть быть удален
+    '404':
+      description: Не найдено

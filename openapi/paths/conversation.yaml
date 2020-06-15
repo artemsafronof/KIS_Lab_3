@@ -1,0 +1,23 @@
+post:
+  tags:
+    - Беседа
+  summary: Добавить новую беседу
+  operationId: PostConversation
+  description: |
+    Добавить новую беседу
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Conversation.yaml
+  responses:
+    '200':
+      description: Беседа была успешно добавлена
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Conversation.yaml
+    '401':
+      description: Отказано в доступе
+    '422':
+      description: Неверные данные

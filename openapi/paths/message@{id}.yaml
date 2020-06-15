@@ -1,0 +1,59 @@
+get:
+  tags:
+    - Сообщение
+  summary: Получить Сообщение по ID
+  operationId: GetMessage
+  description: |
+    Получить информацию о Сообщении по ID
+  responses:
+    '200':
+      description: Информация о Сообщении успешно получено
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Messages.yaml
+    '401':
+      description: Отказано в доступе
+    '404':
+      description: Не найдено
+patch:
+  tags:
+    - Сообщение
+  summary: Изменить Сообщение по ID
+  operationId: PatchMessage
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Messages.yaml
+  responses:
+    '201':
+      description: Сообщение было изменено
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Messages.yaml
+    '401':
+      description: Отказано в доступе
+    '404':
+      description: Не найдено
+    '409':
+      description: Сообщение существует и не может быть обновлен
+    '422':
+      description: Неверные данные
+delete:
+  tags:
+    - Сообщение
+  summary: Удалить Сообщение по ID
+  operationId: DeleteMessage
+  description: |
+    Удалить Сообщение по ID
+  responses:
+    '204':
+      description: Сообщение было удалено
+    '401':
+      description: Отказано в доступе
+    '402':
+      description: Не можеть быть удален
+    '404':
+      description: Не найдено

@@ -1,0 +1,23 @@
+type: object
+required:
+  - name
+  - password
+properties:
+  id:
+    description: User identifier
+    readOnly: true
+    type: integer
+  name:
+    description: Username
+    type: string
+    maxLength: 255
+    example: Maxim Bely
+  password:
+    description: The token's password
+    type: string
+    format: password
+    writeOnly: true
+  phone:
+    description: The phone value
+    type: string
+    example: +123456789

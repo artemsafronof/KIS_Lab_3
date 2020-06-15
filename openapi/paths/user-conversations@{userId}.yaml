@@ -1,0 +1,20 @@
+get:
+  tags:
+    - Беседа
+  summary: Получить все беседы пользователя по его ID
+  operationId: GetConversationsById
+  description: |
+    Получить все беседы пользователя по его ID
+  responses:
+    '200':
+      description: Информация о беседах пользователя успешно получена
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/Conversation.yaml
+    '401':
+      description: Отказано в доступе
+    '404':
+      description: Не найдено
